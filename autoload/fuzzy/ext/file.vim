@@ -5,12 +5,16 @@ let g:fuzzy#ext#file#sources = []
 function! s:stdout(id, data, event) abort
     let g:fuzzy#ext#file#sources += filter(a:data, '!empty(v:val)')
 endfunction
+function! s:exit(...) abort
+    call fuzzy#redraw()
+endfunction
 
 function! fuzzy#ext#file#sources()
     let g:fuzzy#ext#file#sources = []
     call s:JOB.start(['rg', '--hidden', '--files', '--glob', '!.git', '--glob', ''],
                 \ {
                 \ 'on_stdout' : function('s:stdout'),
+                \ 'on_exit' : function('s:exit'),
                 \ }
                 \ )
     return {

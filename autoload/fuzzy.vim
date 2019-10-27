@@ -15,6 +15,10 @@ function! s:fuzzy_handle(expr) abort
     redrawstatus
 endfunction
 
+function! fuzzy#redraw()
+  call s:fuzzy_handle(s:MPT._prompt.begin . s:MPT._prompt.cursor .s:MPT._prompt.end)
+endfunction
+
 function! s:close_buffer() abort
     call fuzzy#window#close()
 endfunction
@@ -27,6 +31,9 @@ function! fuzzy#start(...)
     let s:bufnr = fuzzy#window#open()
     let s:match =  'fuzzy#ext#'. ext . '#match'
     let s:MPT._handle_fly = function('s:fuzzy_handle')
+    if !s:source.async
+        call fuzzy#redraw()
+    endif
     call s:MPT.open()
 endfunction
 
