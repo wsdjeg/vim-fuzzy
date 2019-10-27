@@ -33,6 +33,8 @@ function! fuzzy#ext#buffer#match(str, expr)
 endfunction
 
 function! fuzzy#ext#buffer#accept(line)
+    let bufnr = str2nr(split(a:line)[0])
+    exe 'b' . bufnr
 endfunction
 
 
