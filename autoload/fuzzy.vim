@@ -89,3 +89,8 @@ function! fuzzy#statusline()
     endif
     return s:source.name . rst
 endfunction
+
+function! fuzzy#complete(...)
+    let exts = split(globpath(&rtp, 'autoload/fuzzy/ext/*'), "\n")
+    return join(map(exts,"fnamemodify(v:val, ':t:r')"), "\n")
+endfunction
