@@ -7,4 +7,4 @@
 ## usage
 
 - `:Fuzzy file`: find files in current project
-- `:Fuzzy helo`: find vim help
+- `:Fuzzy help`: find vim help
