@@ -32,10 +32,9 @@ function! fuzzy#ext#file#syntax()
     hi def link FileName Comment
 endfunction
 
-function! fuzzy#ext#file#match(str, expr)
-    if a:str =~ a:expr
-        return v:true
-    endif
+function! fuzzy#ext#file#match(items, expr)
+    let cmd = 'fuzzy\target\debug\fuzzy.exe file ' . a:expr
+    return systemlist(cmd, join(a:items, "\n"))
 endfunction
 
 function! fuzzy#ext#file#accept(line)

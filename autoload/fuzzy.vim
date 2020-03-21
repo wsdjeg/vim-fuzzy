@@ -10,7 +10,7 @@ function! s:fuzzy_handle(expr) abort
     else
         let result = s:source.result
     endif
-    let result = filter(deepcopy(result), 'call(s:match, [v:val, a:expr])')
+    let result = call(s:match, [result, a:expr])
     call s:BUFFER.buf_set_lines(s:bufnr, 0 , -1, 0, result)
     redrawstatus
 endfunction
