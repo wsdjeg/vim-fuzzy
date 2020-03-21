@@ -16,8 +16,7 @@ pub fn fuzzy_match(files: Vec<String>, query: &str) -> Vec<String> {
 // #[cfg(not(windows))]
 #[allow(dead_code, unused_variables)]
 fn match_file_head(file: String, query: &str) -> bool {
-    let mut fuck: Vec<&str> = file.split("\\").collect::<Vec<_>>();
-    fuck.pop().unwrap().starts_with(query)
+    file.split("\\").last().unwrap().starts_with(query)
 }
 
 #[allow(dead_code, unused_variables)]
