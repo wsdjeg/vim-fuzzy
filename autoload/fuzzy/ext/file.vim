@@ -2,7 +2,7 @@ let s:JOB = SpaceVim#api#import('job')
 
 let g:fuzzy#ext#file#sources = []
 
-let g:fuzzy_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\debug\fuzzy.exe'
+let s:fuzzy_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\release\fuzzy.exe'
 
 function! s:stdout(id, data, event) abort
     let g:fuzzy#ext#file#sources += filter(a:data, '!empty(v:val)')

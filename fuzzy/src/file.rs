@@ -22,9 +22,9 @@ fn match_file_head(file: String, query: &str) -> bool {
 
 #[allow(dead_code, unused_variables)]
 fn match_one_char(file: String, query: &str) -> bool {
-    let mut fuck: Vec<&str> = file.split("\\").collect::<Vec<_>>();
+    let f_name = file.split("\\").last().unwrap();
     let mut m = true;
-    let f_name = fuck.pop().unwrap();
+    // let f_name = fuck.pop().unwrap();
     let mut idx = 0;
     for c in query.chars() {
 
