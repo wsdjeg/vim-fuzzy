@@ -1,3 +1,5 @@
+use crate::util::find_start_at;
+
 #[allow(dead_code)]
 pub fn fuzzy_match(files: Vec<String>, query: &str) -> Vec<String> {
     let mut rst: Vec<String> = Vec::new();
@@ -39,9 +41,6 @@ fn match_one_char(file: String, query: &str) -> bool {
 }
 
 
-fn find_start_at(slice: &str, at: usize, pat: char) -> Option<usize> {
-    slice[at..].find(pat).map(|i| at + i)
-}
 
 // #[cfg(windows)]
 // fn match_file_head(file: String, query: &str) -> bool {

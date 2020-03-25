@@ -2,6 +2,7 @@ use std::io::{self, BufRead};
 use std::process;
 
 mod file;
+mod util;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
