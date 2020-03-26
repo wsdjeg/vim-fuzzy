@@ -7,6 +7,29 @@ pub fn fuzzy_match(_files: Vec<String>, _query: &str) -> Vec<String> {
     rst
 }
 
+struct Words {
+    distance: i32,
+    word: String,
+}
+
+impl Words {
+    fn new(word: String, query: String) -> Self {
+        Words {
+            distance: get_distance(word, query),
+            word,
+        }
+    }
+}
+
+fn sort_word_by_distance(words: Vec<String>, query: String) -> Vec<String> {
+    words
+        .iter()
+        .map(|x| Words::new(x.to_string(), query))
+        .sort_by_key(|k| k.distance)
+}
+
+// ref: http://www.voidcn.com/article/p-xgnydwfz-bqy.html
+
 // 编辑距离算法
 
 fn get_distance(s1: String, s2: String) -> i32 {
@@ -44,11 +67,10 @@ fn min(d: i32, i: i32, s: i32) -> i32 {
     }
 }
 
-
 fn similarity(s1: String, s2: String) -> f32 {
     let long = max(s1.chars().count(), s2.chars().count()) as f32;
     let distance = get_distance(s1, s2) as f32;
-    1 as f32 - distance  / long
+    1 as f32 - distance / long
 }
 
 pub fn main() {
