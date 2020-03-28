@@ -82,5 +82,4 @@ fn similarity(s1: String, s2: String) -> f32 {
 #[allow(dead_code)]
 pub fn main() {
     println!("{}", get_distance("he".to_string(), "hello".to_string()));
-    
 }

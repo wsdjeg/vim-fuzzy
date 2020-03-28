@@ -1,3 +1,4 @@
+let s:fuzzy_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\release\fuzzy.exe'
 function! s:get_help_tags() abort
     let tags = []
     for file in split(&rtp, ',')
@@ -25,10 +26,12 @@ function! fuzzy#ext#help#syntax()
     syntax clear
 endfunction
 
-function! fuzzy#ext#help#match(str, expr)
-    if a:str =~ a:expr
-        return v:true
+function! fuzzy#ext#help#match(items, expr)
+    if empty(a:expr)
+        return a:items
     endif
+    let cmd = s:fuzzy_exe . ' full_string ' . a:expr
+    return systemlist(cmd, join(a:items, "\n"))
 endfunction
 
 function! fuzzy#ext#help#accept(line)
