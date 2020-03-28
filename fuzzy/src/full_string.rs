@@ -42,7 +42,7 @@ fn get_distance(s1: String, s2: String) -> i32 {
     }
     let chars1 = s1.chars().collect::<Vec<char>>();
     let chars2 = s2.chars().collect::<Vec<char>>();
-    let mut d = vec![vec![0i32; len1 + 1]; len2 + 1];
+    let mut d = vec![vec![0i32; len2 + 1]; len1 + 1];
     for i in 0..len1 {
         d[i][0] = i as i32;
     }
@@ -81,6 +81,6 @@ fn similarity(s1: String, s2: String) -> f32 {
 
 #[allow(dead_code)]
 pub fn main() {
-    println!("{}", get_distance("hello".to_string(), "hell".to_string()));
+    println!("{}", get_distance("he".to_string(), "hello".to_string()));
     
 }
