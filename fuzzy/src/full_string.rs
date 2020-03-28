@@ -1,10 +1,7 @@
 use std::cmp::max;
 #[allow(dead_code)]
-pub fn fuzzy_match(_files: Vec<String>, _query: &str) -> Vec<String> {
-    let mut rst: Vec<String> = Vec::new();
-    let mut with_one_char: Vec<String> = Vec::new();
-    rst.append(&mut with_one_char);
-    rst
+pub fn fuzzy_match(files: Vec<String>, query: &str) -> Vec<String> {
+    sort_word_by_distance(files, query.to_string())
 }
 
 struct Words {
@@ -15,17 +12,18 @@ struct Words {
 impl Words {
     fn new(word: String, query: String) -> Self {
         Words {
-            distance: get_distance(word, query),
-            word,
+            distance: get_distance(word.clone(), query.clone()),
+            word: word.clone(),
         }
     }
 }
 
 fn sort_word_by_distance(words: Vec<String>, query: String) -> Vec<String> {
-    words
+    let mut w: Vec<Words> = words
         .iter()
-        .map(|x| Words::new(x.to_string(), query))
-        .sort_by_key(|k| k.distance)
+        .map(|x| Words::new(x.to_string(), query.clone())).collect::<Vec<_>>();
+    w.sort_by(|a, b| a.distance.cmp(&b.distance));
+    w.iter().map(|x| x.word.clone() ).collect::<Vec<String>>()
 }
 
 // ref: http://www.voidcn.com/article/p-xgnydwfz-bqy.html
@@ -79,4 +77,9 @@ pub fn main() {
         get_distance("wsdjeg".to_string(), "wdsjgh".to_string())
     );
     println!("{}", similarity("wsdjeg".to_string(), "wsdjeg".to_string()));
+    let mut words: Vec<String> = Vec::new();
+    words.push("hello".to_string());
+    words.push("helai".to_string());
+    words.push("heeri".to_string());
+    println!("{:?}", fuzzy_match(words, "hella"));
 }
