@@ -21,9 +21,10 @@ impl Words {
 fn sort_word_by_distance(words: Vec<String>, query: String) -> Vec<String> {
     let mut w: Vec<Words> = words
         .iter()
-        .map(|x| Words::new(x.to_string(), query.clone())).collect::<Vec<_>>();
+        .map(|x| Words::new(x.to_string(), query.clone()))
+        .collect::<Vec<_>>();
     w.sort_by(|a, b| a.distance.cmp(&b.distance));
-    w.iter().map(|x| x.word.clone() ).collect::<Vec<String>>()
+    w.iter().map(|x| x.word.clone()).collect::<Vec<String>>()
 }
 
 // ref: http://www.voidcn.com/article/p-xgnydwfz-bqy.html
@@ -37,20 +38,20 @@ fn get_distance(s1: String, s2: String) -> i32 {
     // 当 len 为 0 时：
     if len1 == 0 {
         return len2 as i32;
-    }else if len2 == 0{
+    } else if len2 == 0 {
         return len1 as i32;
     }
     let chars1 = s1.chars().collect::<Vec<char>>();
     let chars2 = s2.chars().collect::<Vec<char>>();
     let mut d = vec![vec![0i32; len2 + 1]; len1 + 1];
-    for i in 0..len1 {
+    for i in 0..=len1 {
         d[i][0] = i as i32;
     }
-    for i in 0..len2 {
+    for i in 0..=len2 {
         d[0][i] = i as i32;
     }
-    for i in 1..len1 + 1 {
-        for j in 1..len2 + 1 {
+    for i in 1..=len1 {
+        for j in 1..=len2 {
             let mut cost = 1;
             if chars1[i - 1] == chars2[j - 1] {
                 cost = 0;
@@ -81,5 +82,11 @@ fn similarity(s1: String, s2: String) -> f32 {
 
 #[allow(dead_code)]
 pub fn main() {
-    println!("{}", get_distance("he".to_string(), "hello".to_string()));
+    println!("{}", get_distance("ec".to_string(), "he".to_string()));
+    let mut words: Vec<String> = Vec::new();
+    words.push("heslo".to_string());
+    words.push("helab".to_string());
+    words.push("helac".to_string());
+    words.push("hel".to_string());
+    println!("{:?}", fuzzy_match(words, "hel"));
 }
