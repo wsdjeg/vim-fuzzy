@@ -65,21 +65,9 @@ fn min(d: i32, i: i32, s: i32) -> i32 {
     }
 }
 
+#[allow(dead_code)]
 fn similarity(s1: String, s2: String) -> f32 {
     let long = max(s1.chars().count(), s2.chars().count()) as f32;
     let distance = get_distance(s1, s2) as f32;
     1 as f32 - distance / long
-}
-
-pub fn main() {
-    println!(
-        "{}",
-        get_distance("wsdjeg".to_string(), "wdsjgh".to_string())
-    );
-    println!("{}", similarity("wsdjeg".to_string(), "wsdjeg".to_string()));
-    let mut words: Vec<String> = Vec::new();
-    words.push("hello".to_string());
-    words.push("helai".to_string());
-    words.push("heeri".to_string());
-    println!("{:?}", fuzzy_match(words, "hella"));
 }

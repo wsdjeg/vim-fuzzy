@@ -2,6 +2,7 @@ use std::io::{self, BufRead};
 use std::process;
 
 mod file;
+mod full_string;
 mod util;
 
 fn main() {
@@ -27,6 +28,8 @@ fn main() {
 
     if *match_type == "file".to_string() {
         println!("{}", file::fuzzy_match(input, &query).join("\n"));
+    }else if *match_type == "full_string".to_string() {
+        println!("{}", full_string::fuzzy_match(input, &query).join("\n"));
     }
 }
 
