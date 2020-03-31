@@ -12,7 +12,7 @@ struct Words {
 impl Words {
     fn new(word: String, query: String) -> Self {
         Words {
-            distance: get_distance(word.clone(), query.clone()),
+            distance: fuzzy_distance(word.clone(), query.clone()),
             word: word.clone(),
         }
     }
@@ -82,11 +82,39 @@ fn similarity(s1: String, s2: String) -> f32 {
 
 #[allow(dead_code)]
 pub fn main() {
-    println!("{}", get_distance("ec".to_string(), "he".to_string()));
-    let mut words: Vec<String> = Vec::new();
-    words.push("heslo".to_string());
-    words.push("helab".to_string());
-    words.push("helac".to_string());
-    words.push("hel".to_string());
-    println!("{:?}", fuzzy_match(words, "hel"));
+    // println!("{}", get_distance("ec".to_string(), "he".to_string()));
+    // let mut words: Vec<String> = Vec::new();
+    // words.push("heslo".to_string());
+    // words.push("helab".to_string());
+    // words.push("helac".to_string());
+    // words.push("hel".to_string());
+    // println!("{:?}", fuzzy_match(words, "hel"));
+    println!("{}", fuzzy_distance("abcdefg".to_string(), "ce".to_string()));
+}
+
+fn fuzzy_distance(s1: String, s2: String) -> i32 {
+    let mut begin: i32 = 0;
+    #[allow(unused_assignments)]
+    let mut end: i32 = 0;
+    let mut long: i32 = 0;
+    let chars1 = s1.chars().collect::<Vec<char>>();
+    let chars2 = s2.chars().collect::<Vec<char>>();
+    let char1_len = chars1.len() as i32;
+    let char2_len = chars2.len() as i32;
+    let mut idx = 0;
+    for c in chars1 {
+        begin += 1;
+        if idx == chars2.len() {
+            break;
+        } else if c == chars2[idx] {
+            idx += 1;
+        }else{
+            long += 1;
+        }
+    }
+    end = char1_len - begin;
+    begin = begin - char2_len - 1;
+    long = long + char2_len;
+    // println!("{:?}", (begin, end, long));
+    (begin + end) / 2 + long
 }
