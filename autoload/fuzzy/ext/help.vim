@@ -33,7 +33,7 @@ function! fuzzy#ext#help#sources()
                 \ }
                 \ )
     return {
-                \ 'name' : 'file',
+                \ 'name' : 'help',
                 \ 'async' : v:true,
                 \ 'result' : 'g:fuzzy#ext#help#sources'
                 \ }
