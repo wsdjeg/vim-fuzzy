@@ -2,7 +2,8 @@ let s:JOB = SpaceVim#api#import('job')
 
 let g:fuzzy#ext#help#sources = []
 
-let s:fuzzy_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\release\collect_tags.exe'
+let s:collect_tags_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\release\collect_tags.exe'
+let s:fuzzy_exe = fnamemodify(expand('<sfile>'), ':p:h:h:h:h') . '\fuzzy\target\release\fuzzy.exe'
 
 function! s:stdout(id, data, event) abort
     let g:fuzzy#ext#help#sources += filter(a:data, '!empty(v:val)')
@@ -26,7 +27,7 @@ endfunction
 
 function! fuzzy#ext#help#sources()
     let g:fuzzy#ext#help#sources = []
-    call s:JOB.start([s:fuzzy_exe, &rtp],
+    call s:JOB.start([s:collect_tags_exe, &rtp],
                 \ {
                 \ 'on_stdout' : function('s:stdout'),
                 \ 'on_exit' : function('s:exit'),
